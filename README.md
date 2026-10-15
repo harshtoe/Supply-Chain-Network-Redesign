@@ -8,9 +8,9 @@
 
 **Project at a glance:** I independently developed an end-to-end analytical decision-support workflow on the public Olist Brazilian e-commerce dataset (~99,441 historical orders, 2016–2018). I engineered order- and lane-level data in SQL, diagnosed freight-cost drivers, calibrated and debugged a network model, explored facility counts, optimized a four-DC configuration, independently checked the result with Python MILP, and presented the findings in Power BI.
 
-<!-- IMAGE SLOT 1 — RECRUITER HERO: Full Power BI dashboard screenshot. -->
-<!-- Add image file at images/dashboard-overview.png, then uncomment: -->
-<!-- ![Power BI executive dashboard](images/dashboard-overview.png) -->
+Power BI executive dashboard
+<img width="1080" height="606" alt="image" src="https://github.com/user-attachments/assets/6630b4c1-7837-493c-ba83-245b371e9a05" />
+
 
 ## Business Question
 
@@ -45,24 +45,6 @@ The analyzed baseline uses **seller-direct shipping** (seller → carrier pickup
 | **Independent validation** | Rebuilt assignment problem in Python using PuLP/CBC and haversine distance | Cross-check against vendor-tool output |
 | **Business intelligence** | Designed Power BI web dashboard with ArcGIS maps, DAX KPIs, GFA sensitivity and delay-review comparison | Executive decision-support dashboard |
 
-## End-to-End Workflow
-
-```mermaid
-flowchart TD
-    A[Olist CSV source tables] --> B[MySQL ingestion and order-level aggregation]
-    B --> C[Chargeable weight, delivery timing and geographic zoning]
-    C --> D[2,048 historical origin-destination lane benchmarks]
-    D --> E[Freight driver analysis and cost calibration]
-    E --> F[anyLogistix model checks and corrections]
-    F --> G[Greenfield Analysis: N = 1 to 5]
-    G --> H[Select four candidate DC locations]
-    H --> I[Capacitated N=4 optimization with soft SLA penalty]
-    I --> J[Independent Python PuLP/CBC MILP validation]
-    J --> K[Financial sensitivity, assumptions and SLA analysis]
-    K --> L[Power BI decision-support dashboard]
-```
-
-**Separate diagram files:** [`process_flowchart.svg`](process_flowchart.svg) · [`process_flowchart.mmd`](process_flowchart.mmd)
 
 <!-- IMAGE SLOT 2 — Exported flowchart if preferred over Mermaid. -->
 <!-- ![End-to-end process diagram](process_flowchart.svg) -->
@@ -111,6 +93,10 @@ An Excel side-model helped distinguish volumetric costs from an embedded distanc
 - Mapped candidate centroids to reported hub areas: **Petrópolis (RJ), Santa Catarina, São Paulo, and Petrolina (PE)**. The report describes Santa Catarina at state level and does not identify a specific city.
 - Solved the **N=4 capacitated network** in anyLogistix with DC monthly throughput limits, a **six-day service target** and a **$500 per day late** soft penalty. DC Initial Stock was used as a deliberate supply approximation.
 
+Proposed distribution-center locations
+<img width="933" height="534" alt="image" src="https://github.com/user-attachments/assets/43965b4f-46cb-4100-8ab0-a5c05af51520" />
+
+
 <!-- IMAGE SLOT 3 — DC candidate locations / optimized network map. -->
 <!-- ![Proposed distribution-center locations](images/dc-network.png) -->
 
@@ -142,36 +128,6 @@ Created a Power BI **web** dashboard with ArcGIS Maps, DAX metrics, zone-level c
 - **No live integration, DC rollout, inventory optimization, or disruption-resilience stress test** was completed.
 - Migrating sellers to a DC-led model would also require operational and contractual changes beyond the analysis.
 
-## Repository Structure & Source Files
-
-The analysis source files **exist and can be added to this repository**. The folders below are suggested destinations, **not claims that the scripts/models have already been uploaded**. Replace generic names with your actual filenames and remove folders that do not apply.
-
-```text
-.
-├── README.md
-├── process_flowchart.mmd
-├── process_flowchart.svg
-├── sql/                  # MySQL data preparation and benchmark queries
-├── python/               # PuLP/CBC optimization cross-check
-├── anylogistix/          # Exported GFA/network model files and configuration
-├── powerbi/              # Power BI export(s), DAX measures or screenshots
-├── excel/                # Cost calibration side-model, if shareable
-├── images/               # Dashboard screenshots and figures (add yourself)
-└── docs/                 # Report / assumptions / methodology notes, if desired
-```
-
-**To reproduce:** Place the actual source files in the relevant folders and document (1) Olist CSV download/setup, (2) SQL execution order, (3) calibration queries, (4) anyLogistix model configuration and version, (5) Python requirements and run command, and (6) Power BI import steps. **Exact execution commands cannot be supplied reliably until the source files are reviewed.** Do not commit private credentials, licensed binaries you cannot redistribute, or dataset copies without checking usage terms.
-
-## Future Work
-
-- Expand from a transportation-only objective to **total cost of ownership (TCO)** including inbound freight, facilities, labor, inventory, and handling.
-- Test disruptions, alternative demand forecasts and DC capacities.
-- Investigate the highest-volume proposed **São Paulo DC** first (modeled at **134,733 kg/year**), after validating commercial feasibility.
-- Incorporate live order feeds **only if** progressing from a decision-support study to a deployed operations workflow.
-
-## Dataset & Project Context
-
-**Dataset:** Public **Olist Brazilian E-Commerce Dataset** (historical 2016–2018 order data). **Academic context:** Production Engineering, VJTI Mumbai. **Project type:** Individual analytical project.
 
 <!-- Add your verified original Olist dataset URL, your GitHub profile/contact, and the project's actual completion date here. -->
 <!-- Add a license only if you have chosen one and have rights to distribute all included content. -->
